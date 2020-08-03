@@ -60,7 +60,6 @@
       thisProduct.data = data;
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
       thisProduct.renderInMenu();
-      thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initAmountWidget();
       thisProduct.processOrder()
@@ -259,3 +258,4 @@
 
   app.init();
 }
+
