@@ -273,11 +273,24 @@ const templates = {
 
       }
 
-      initActions() {
+       initActions() {
         const thisCart = this;
   
         thisCart.dom.toggleTrigger.addEventListener('click', function () {
           thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
+        });
+  
+        thisCart.dom.productList.addEventListener('updated', function () {
+          thisCart.update();
+        });
+  
+        thisCart.dom.productList.addEventListener('remove', function () {
+          thisCart.remove(event.detail.cartProduct);
+        });
+  
+        thisCart.dom.form.addEventListener('submit', function () {
+          event.preventDefault();
+          thisCart.sendOrder();
         });
       }
   }
