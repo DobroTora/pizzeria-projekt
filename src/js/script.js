@@ -261,6 +261,7 @@ const templates = {
         const thisCart = this;
         thisCart.products = [];
         thisCart.getElements(element);
+        thisCart.initActions();
         console.log('new Cart', thisCart);
       }
 
