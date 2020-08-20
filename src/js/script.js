@@ -131,7 +131,7 @@ const templates = {
         event.preventDefault();
         thisProduct.element.classList.toggle('active');
         const activeProducts = document.querySelectorAll('article.active');
-        for (let activeProduct of activeProducts) {
+         for (let activeProduct of activeProducts) {
           if (activeProduct !== thisProduct.element) {
             activeProduct.classList.remove('.active');
           }
@@ -189,8 +189,7 @@ const templates = {
             for (let images of optionImages) {
               images.classList.add(classNames.menuProduct.imageVisible);
             }
-          }
-          else {
+          }else {
             for (let images of optionImages) {
               images.classList.remove(classNames.menuProduct.imageVisible);
             }
@@ -285,7 +284,7 @@ const templates = {
         });
   
         thisCart.dom.productList.addEventListener('remove', function () {
-          thisCart.remove(event.detail.cartProduct);
+        thisCart.remove(event.detail.cartProduct);
         });
   
         thisCart.dom.form.addEventListener('submit', function () {
@@ -293,6 +292,14 @@ const templates = {
           thisCart.sendOrder();
         });
       }
+      
+      remove(cartProduct) {
+      const thisCart = this;
+      const index = thisCart.products.indexOf(cartProduct);
+      thisCart.products.splice(index, 1);
+      cartProduct.dom.wrapper.remove();
+      thisCart.update();
+    }
   }
   
   class CartProduct {
@@ -363,7 +370,6 @@ const templates = {
       thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
       thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.edit);
       thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove);
-
       thisCartProduct.dom.remove.addEventListener('click', function (event) {
         event.preventDefault();
         thisCartProduct.remove();
