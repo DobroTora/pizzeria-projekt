@@ -270,7 +270,8 @@ const templates = {
         thisCart.dom.wrapper = element;
         thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
         thisCart.dom.form = document.querySelector(select.cart.form);
-
+        thisCart.dom.phone = document.querySelector(select.cart.phone);
+        thisCart.dom.address = document.querySelector(select.cart.address);
       }
 
        initActions() {
@@ -299,9 +300,20 @@ const templates = {
       const url = settings.db.url + '/' + settings.db.order;
 
       const payload = {
-      address: 'test',
-      totalPrice: thisCart.totalPrice,
+        phone: thisCart.dom.phone.value,
+        address: thisCart.dom.address.value,
+        totalPrice: thisCart.totalPrice,
+        subtotalPrice: thisCart.subtotalPrice,
+        totalNumber: thisCart.totalNumber,
+        deliveryFee: thisCart.deliveryFee,
+        products: [],
       };
+
+      for (let product of thisCart.products) {
+
+        product.getData();
+        payload.products.push(product);
+      }
         
       const options = {
       method: 'POST',
@@ -342,8 +354,7 @@ const templates = {
       console.log('productData', menuProduct);
     }
 
-    getData() {
-
+     getData() {
       const thisCartProduct = this;
       const productData = {
         id: thisCartProduct.id,
@@ -352,7 +363,6 @@ const templates = {
         priceSingle: thisCartProduct.priceSingle,
         params: thisCartProduct.params,
       };
-
       return productData;
     }
 
