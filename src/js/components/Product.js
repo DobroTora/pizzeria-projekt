@@ -105,8 +105,31 @@ export class Product {
           }
         }
       }
+   }
+       
       thisProduct.priceSingle = price;
       thisProduct.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
       thisProduct.priceElem.innerHTML = thisProduct.price;
     }
+    
+  initAmountWidget() {
+    const thisProduct = this;
+    thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+    thisProduct.amountWidgetElem.addEventListener('updated', function(){
+      thisProduct.processOrder();
+    });
+  }
+
+  addToCart(){
+    const thisProduct = this;
+    thisProduct.name = thisProduct.data.name;
+    thisProduct.amount = thisProduct.amountWidget.value;
+    const event = new CustomEvent('add-to-cart', {
+      bubbles: true,
+      detail: {
+        product: thisProduct,
+      },
+    });
+    thisProduct.element.dispatchEvent(event);
+  }
   }
