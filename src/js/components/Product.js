@@ -1,4 +1,4 @@
-class Product {
+export class Product {
     constructor(id, data){
       const thisProduct = this;
       thisProduct.id = id;
