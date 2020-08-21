@@ -1,4 +1,4 @@
-class CartProduct {
+export class CartProduct {
     constructor(menuProduct, element) {
       const thisCartProduct = this;
       thisCartProduct.id = menuProduct.id;
