@@ -13,6 +13,26 @@ const app = {
         new Product(productData, thisApp.data.products[productData]);
       }
     },
+    
+    initPages: function(){
+    const thisApp = this;
+
+    thisApp.pages = Array.from(document.querySelector(select.containerOf.pages).children);
+    console.log(thisApp.pages);
+    thisApp.navLinks = document.querySelectorAll(select.nav.links);
+    console.log(thisApp.navLinks)
+    thisApp.activatePage(thisApp.pages[0].id);
+    for (let link of thisApp.navLinks) {
+        link.getEventListener('click', function(event){
+            const clickedElement = this;
+            event.preventDefault();
+            const id = clickedElem.getAttribute('href').replace('#', '');
+            thisApp.activatePage(id);
+            window.location.hash = '#/' + id;
+        })
+    }
+        
+  },
 
     initData: function(){
       const thisApp = this;
