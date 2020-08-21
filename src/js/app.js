@@ -2,6 +2,7 @@ import { Product } from  './components/Product.js';
 import { CartProduct } from  './components/CartProduct.js';
 import { AmountWidget } from  './components/AmountWidget.js';
 import { Cart } from  './components/Cart.js';
+import { settings, select, classNames } from './settings.js';
 
 const app = {
     
