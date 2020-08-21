@@ -1,4 +1,4 @@
-class Cart {
+export class Cart {
     constructor(element) {
       const thisCart = this;
       thisCart.products = [];
