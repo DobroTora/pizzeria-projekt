@@ -3,18 +3,17 @@
 {
   'use strict';
 
-  class Product{
+  class Product {
     constructor(id, data){
       const thisProduct = this;
-
       thisProduct.id = id;
       thisProduct.data = data;
-      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
       thisProduct.renderInMenu();
+      thisWidget.getElements();
       thisProduct.initAccordion();
       thisProduct.initAmountWidget();
       thisProduct.processOrder()
-      thisWidget.getElements(element);
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
       console.log('new Product:', thisProduct);
     }
 
@@ -27,12 +26,6 @@
     }
 
     getElements(){
-      const thisWidget = this;
-      thisWidget.element = element;
-      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
-      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
-      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
-
       const thisProduct = this;
       thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
       thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
@@ -126,11 +119,17 @@
       thisWidget.value = settings.amountWidget.defaultValue;
       thisWidget.setValue(thisWidget.input.value);
       thisWidget.initActions();
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
     }
 
       getElements(element) {
         const thisWidget = this;
         thisWidget.element = element;
+        thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+        initAmountWidget()
         thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
         thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
         thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
@@ -185,6 +184,7 @@
         const thisCart = this;
         thisCart.dom = {};
         thisCart.dom.wrapper = element;
+        thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
         thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
         thisCart.dom.form = document.querySelector(select.cart.form);
         thisCart.dom.phone = document.querySelector(select.cart.phone);
@@ -212,6 +212,7 @@
         });
        
       }
+      
       sendOrder() {
       const thisCart = this;
       const url = settings.db.url + '/' + settings.db.order;
@@ -224,6 +225,13 @@
         totalNumber: thisCart.totalNumber,
         deliveryFee: thisCart.deliveryFee,
         products: [],
+        
+         fetch(url, options)
+        .then(function (response) {
+          return response.json();
+        }).then(function (parsedResponse) {
+          console.log('parsedResponse', parsedResponse);
+        });
       };
 
       for (let product of thisCart.products) {
@@ -240,12 +248,7 @@
       body: JSON.stringify(payload),
       };
       }
-      fetch(url, options)
-        .then(function (response) {
-          return response.json();
-        }).then(function (parsedResponse) {
-          console.log('parsedResponse', parsedResponse);
-        });
+    
       
       remove(cartProduct) {
       const thisCart = this;
